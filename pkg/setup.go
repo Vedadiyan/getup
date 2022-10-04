@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"runtime"
 )
 
 var (
@@ -21,6 +22,27 @@ func New(homeDirectory string, directory string, fileName string) {
 	_homeDirectory = homeDirectory
 	_directory = directory
 	_fileName = fileName
+	os := runtime.GOOS
+	switch os {
+	case "linux":
+		{
+			break
+		}
+	case "windows":
+		{
+			_fileName += ".exe"
+			break
+		}
+	case "darwin":
+		{
+			_fileName += ".dmg"
+			break
+		}
+	default:
+		{
+			panic("go-painless does not support the current platform")
+		}
+	}
 	_initialized = true
 }
 
